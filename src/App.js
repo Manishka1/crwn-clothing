@@ -49,7 +49,7 @@ class App extends React.Component {
       <div>
         <Header currentUser={this.state.currentUser} />
         <Routes>
-          <Route path='/' element={<HomePage />} />
+          <Route path='/crwn-clothing' element={<HomePage />} />
           <Route path='/shop' element={<ShopPage />} />
           <Route path='/signin' element={<SignInAndSignUpPage />} />
         </Routes>

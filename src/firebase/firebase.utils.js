@@ -3,17 +3,17 @@ import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
 
 const config = {
-    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-    authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-    projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-    storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-    appId: process.env.REACT_APP_FIREBASE_APP_ID,
-    measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
+    apiKey: "AIzaSyBbgoooEN8ESqde9jIYUbRfGZwKL-I2yq4",
+    authDomain: "crwn-db-bb2ea.firebaseapp.com",
+    projectId: "crwn-db-bb2ea",
+    storageBucket: "crwn-db-bb2ea.appspot.com",
+    messagingSenderId: "961577615253",
+    appId: "1:961577615253:web:09ca69925c70d7b133809c",
+    measurementId: "G-0GNHKME3KH"
 };
 
 export const createUserProfileDocument = async (userAuth, additionalData) => {
-    if (!userAuth) return;
+    if (!userAuth) return null;
 
     const userRef = doc(firestore, `users/${userAuth.uid}`);
     const snapshot = await getDoc(userRef);

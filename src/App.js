@@ -6,6 +6,8 @@ import ShopPage from './pages/shop/shop.component';
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
 import Header from './components/header/header.component';
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
+import { HashRouter as Router} from 'react-router-dom';
+
 
 
 class App extends React.Component {
@@ -46,14 +48,16 @@ class App extends React.Component {
 
   render() {
     return (
+      <Router>
       <div>
         <Header currentUser={this.state.currentUser} />
         <Routes>
-          <Route path='/crwn-clothing' element={<HomePage />} />
+          <Route path='/' element={<HomePage />} />
           <Route path='/shop' element={<ShopPage />} />
           <Route path='/signin' element={<SignInAndSignUpPage />} />
         </Routes>
       </div>
+      </Router>
     );
   }
 }

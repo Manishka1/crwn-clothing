@@ -12,9 +12,32 @@ const config = {
     measurementId: "G-0GNHKME3KH"
 };
 
+// Initialize Firebase app
+const firebaseApp = initializeApp(config);
+export const auth = getAuth(firebaseApp);
+export const firestore = getFirestore(firebaseApp);
+
+// Google sign-in provider setup
+const provider = new GoogleAuthProvider();
+provider.setCustomParameters({ prompt: 'select_account' });
+
+export const signInWithGoogle = async () => {
+    try {
+        await signInWithPopup(auth, provider);
+    } catch (error) {
+        if (error.code === 'auth/popup-closed-by-user') {
+            console.log('The popup was closed by the user before completing the sign-in.');
+        } else {
+            console.error('Error during sign-in:', error);
+        }
+    }
+};
+
+// Function to create or retrieve user profile document
 export const createUserProfileDocument = async (userAuth, additionalData) => {
     if (!userAuth) return null;
 
+    // Use `doc()` from Firestore v9+ modular SDK
     const userRef = doc(firestore, `users/${userAuth.uid}`);
     const snapshot = await getDoc(userRef);
 
@@ -23,6 +46,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
         const createdAt = new Date();
 
         try {
+            // Use `setDoc()` to create a new document
             await setDoc(userRef, {
                 displayName,
                 email,
@@ -37,25 +61,5 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
     return userRef;
 };
 
-const firebaseApp = initializeApp(config);
-
-export const auth = getAuth(firebaseApp);
-export const firestore = getFirestore(firebaseApp);
-
-const provider = new GoogleAuthProvider();
-provider.setCustomParameters({ prompt: 'select_account' });
-
-export const signInWithGoogle = async () => {
-    try {
-        await signInWithPopup(auth, provider);
-    } catch (error) {
-        if (error.code === 'auth/popup-closed-by-user') {
-            console.log('The popup was closed by the user before completing the sign-in.');
-            
-        } else {
-            console.error('Error during sign-in:', error);
-        }
-    }
-};
-
 export default firebaseApp;
+

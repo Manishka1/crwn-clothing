@@ -1,6 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
+import { signOut } from 'firebase/auth';
 
 const config = {
     apiKey: "AIzaSyBbgoooEN8ESqde9jIYUbRfGZwKL-I2yq4",
@@ -30,6 +31,16 @@ export const signInWithGoogle = async () => {
         } else {
             console.error('Error during sign-in:', error);
         }
+    }
+};
+
+// Sign-out function
+export const signOutUser = async () => {
+    try {
+        await signOut(auth);
+        console.log('User signed out successfully');
+    } catch (error) {
+        console.error('Error during sign-out:', error);
     }
 };
 
